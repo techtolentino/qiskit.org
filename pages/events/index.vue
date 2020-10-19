@@ -10,6 +10,34 @@
           </cv-tabs>
         </client-only>
       </div>
+      <div class="event-page__filters-location">
+        <client-only>
+          <cv-multi-select
+            class="event-age__filters-location_dropdown"
+            :label="`All locations`"
+            :inline="false"
+            :disabled="false"
+            :filterable="true"
+            :auto-filter="true"
+            :auto-highlight="true"
+            :options="getOptions(regions)"
+          />
+        </client-only>
+      </div>
+      <div class="event-page__filters-type">
+        <client-only>
+          <cv-multi-select
+            class="event-age__filters-location_dropdown"
+            :label="`All types`"
+            :inline="false"
+            :disabled="false"
+            :filterable="true"
+            :auto-filter="true"
+            :auto-highlight="true"
+            :options="getOptions(types)"
+          />
+        </client-only>
+      </div>
       <div class="event-page__event-index">
         <div class="event-page__filters-others">
           <fieldset class="bx--fieldset">
@@ -161,6 +189,17 @@ export default class extends QiskitPage {
     return (this as any).filteredEvents.length === 0
   }
 
+  getOptions (data) {
+    return data.map((item) => {
+      return {
+        label: item,
+        value: item,
+        name: item
+      }
+    })
+
+  }
+
   isFilterChecked (filter: string, filterValue: string): Array<CommunityEvent> {
     const typeFilters = (this as any).typeFilters
     const regionFilters = (this as any).regionFilters
@@ -225,6 +264,7 @@ export default class extends QiskitPage {
     }
 
     @include mq($until: medium) {
+      margin-bottom: 0;
       .bx--tabs-trigger {
         background-color: $white;
       }
