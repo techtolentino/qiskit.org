@@ -14,12 +14,10 @@
         <client-only>
           <cv-multi-select
             class="event-age__filters-location_dropdown"
+            :theme="`light`"
             :label="`All locations`"
             :inline="false"
             :disabled="false"
-            :filterable="true"
-            :auto-filter="true"
-            :auto-highlight="true"
             :options="getOptions(regions)"
           />
         </client-only>
@@ -28,12 +26,10 @@
         <client-only>
           <cv-multi-select
             class="event-age__filters-location_dropdown"
+            :theme="`light`"
             :label="`All types`"
             :inline="false"
             :disabled="false"
-            :filterable="true"
-            :auto-filter="true"
-            :auto-highlight="true"
             :options="getOptions(types)"
           />
         </client-only>
@@ -197,7 +193,6 @@ export default class extends QiskitPage {
         name: item
       }
     })
-
   }
 
   isFilterChecked (filter: string, filterValue: string): Array<CommunityEvent> {
@@ -316,6 +311,25 @@ export default class extends QiskitPage {
 
     .bx--label {
       color: $cool-gray-80;
+    }
+  }
+
+  &__filters-location,
+  &__filters-type {
+    .bx--list-box--light,
+    .bx--list-box__menu {
+      background-color: $white;
+    }
+
+    .bx--list-box__label,
+    .bx--list-box__menu-item,
+    .bx--list-box__menu-item--highlighted .bx--list-box__menu-item__option {
+      color: $white-text-01;
+    }
+
+    .bx--list-box__menu-item--highlighted {
+      background-color: $white;
+      color: $white-text-01;
     }
   }
 
