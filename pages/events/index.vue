@@ -38,7 +38,7 @@
         <div class="event-page__filters-others">
           <fieldset class="bx--fieldset">
             <legend class="bx--label">
-              Region
+              Location
             </legend>
             <div class="event-page__chrome-columns-fix">
               <client-only>
@@ -294,7 +294,7 @@ export default class extends QiskitPage {
       }
 
       .bx--tabs__nav-item:hover:not(.bx--tabs__nav-item--selected):not(.bx--tabs__nav-item--disabled) {
-        background-color: $cool-gray-20;
+        background-color: $cool-gray-10;
         box-shadow: initial;
       }
     }
@@ -312,24 +312,58 @@ export default class extends QiskitPage {
     .bx--label {
       color: $cool-gray-80;
     }
+
+    @include mq($until: medium) {
+      display: none;
+    }
+
   }
 
   &__filters-location,
   &__filters-type {
+    @include mq($from: medium) {
+      display: none;
+    }
+
     .bx--list-box--light,
     .bx--list-box__menu {
       background-color: $white;
+      border-bottom-color: $gray-20;
     }
 
     .bx--list-box__label,
     .bx--list-box__menu-item,
-    .bx--list-box__menu-item--highlighted .bx--list-box__menu-item__option {
+    .bx--list-box__menu-item--highlighted .bx--list-box__menu-item__option,
+    .bx--list-box__menu-item__option {
       color: $white-text-01;
     }
 
-    .bx--list-box__menu-item--highlighted {
-      background-color: $white;
+    .bx--list-box__menu-item {
+      background-color: $cool-gray-10;
       color: $white-text-01;
+    }
+
+    .bx--list-box__menu-icon > svg {
+      fill: $black-100;
+    }
+
+    .bx--list-box--expanded:hover.bx--list-box--light:hover {
+      background-color: $cool-gray-20;
+      box-shadow: initial;
+    }
+
+    .bx--checkbox-label::before {
+      border: 1px solid $black-100;
+    }
+
+    .bx--list-box__menu-item--highlighted {
+      background-color: $cool-gray-20;
+    }
+  }
+
+  &__filters-type {
+    @include mq($until: medium) {
+      margin-bottom: $layout-04;
     }
   }
 
