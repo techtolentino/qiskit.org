@@ -17,20 +17,20 @@
             :theme="`light`"
             :label="`All locations`"
             :inline="false"
-            :disabled="false"
             :options="getOptions(regions)"
+            @change="actionChange"
           />
         </client-only>
       </div>
       <div class="event-page__filters-type">
         <client-only>
           <cv-multi-select
-            class="event-age__filters-location_dropdown"
+            class="event-age__filters-type_dropdown"
             :theme="`light`"
             :label="`All types`"
             :inline="false"
-            :disabled="false"
             :options="getOptions(types)"
+            @change="actionChange"
           />
         </client-only>
       </div>
@@ -183,6 +183,10 @@ export default class extends QiskitPage {
 
   get noEvents (): boolean {
     return (this as any).filteredEvents.length === 0
+  }
+
+  actionChange (e) {
+    console.log(e, 'e')
   }
 
   getOptions (data) {
