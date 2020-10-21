@@ -17,8 +17,8 @@
             :theme="`light`"
             :label="`All locations`"
             :inline="false"
-            :options="getOptions(regions)"
-            @change="actionChange"
+            :options="regionsList('regions')"
+            @change="updateRegionsFilter"
           />
         </client-only>
       </div>
@@ -29,8 +29,8 @@
             :theme="`light`"
             :label="`All types`"
             :inline="false"
-            :options="getOptions(types)"
-            @change="actionChange"
+            :options="regionsList('types')"
+            @change="updateTypesFilter"
           />
         </client-only>
       </div>
@@ -185,18 +185,52 @@ export default class extends QiskitPage {
     return (this as any).filteredEvents.length === 0
   }
 
-  actionChange (e) {
-    console.log(e, 'e')
+  get regionsList (): any {
+    return (optionsList: string) => {
+      return this[optionsList].map((option) => {
+        return {
+          label: option,
+          value: option,
+          name: option
+        }
+      })
+    }
   }
 
-  getOptions (data) {
-    return data.map((item) => {
+  get typesList (): any {
+    return (this as any).types.map((type) => {
       return {
-        label: item,
-        value: item,
-        name: item
+        label: type,
+        value: type,
+        name: type
       }
     })
+  }
+
+  updateRegionsFilter (selectedRegions) {
+    // array of checked items
+    // check store to see if values are in store
+    // send filter type to commit
+    // for each item in array, commit to backend
+
+    const { commit } = this.$store
+    const payload = {
+      filter: 'regionFilters',
+      filterValues: selectedRegions
+    }
+
+    commit('addFilterSet', payload)
+  }
+
+  updateTypesFilter (values) {
+    const checkedType = values[values.length - 1] || ''
+    const { commit } = this.$store
+
+    const payload = {
+      filter: 'typeFilters',
+      filterValue: checkedType
+    }
+    commit('addFilter', payload)
   }
 
   isFilterChecked (filter: string, filterValue: string): Array<CommunityEvent> {

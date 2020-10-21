@@ -127,6 +127,16 @@ export default {
     setActiveSet (state, payload: CommunityEventSet) {
       state.activeSet = payload
     },
+    addFilterSet (state, payload) {
+      const { filter, filterValues } = payload
+
+      filterValues.forEach((val) => {
+        const filterIndex = state[filter].indexOf(val)
+        const noFilterFound = filterIndex === -1
+
+        noFilterFound && state[filter].push(val)
+      })
+    },
     addFilter (state, payload) {
       const { filter, filterValue } = payload
       const filterIndex = state[filter].indexOf(filterValue)
