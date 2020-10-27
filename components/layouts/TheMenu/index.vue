@@ -77,78 +77,41 @@
       </nav>
     </section> -->
 
-    <cv-header aria-label="Carbon header" class="menu">
+    <cv-header aria-label="Carbon header" class="menu" tabindex="-1">
       <cv-header-menu-button aria-label="Header menu" aria-controls="side-nav" />
       <cv-skip-to-content href="#main-content">
         Skip to content
       </cv-skip-to-content>
       <div class="menu__container">
-      <cv-header-name href="/">
+        <cv-header-name href="/">
           <AppLogo
             class="menu__logo"
             :class="{ 'menu__logo_active': isActiveHome(homeLink) }"
           />
-      </cv-header-name>
-      <cv-header-nav aria-label="Carbon nav">
-      <cv-header-menu-item href="javascript:void(0)">
-        Link 1
-      </cv-header-menu-item>
-      <cv-header-menu-item href="javascript:void(0)">
-        Link 2
-      </cv-header-menu-item>
-      <cv-header-menu-item href="javascript:void(0)">
-        Link 3
-      </cv-header-menu-item>
-      <cv-header-menu aria-label="Link 4" title="Link 4">
-        <cv-header-menu-item href="javascript:void(0)">
-          Submenu Link 1
-        </cv-header-menu-item>
-        <cv-header-menu-item href="javascript:void(0)">
-          Submenu Link 2
-        </cv-header-menu-item>
-        <cv-header-menu-item href="javascript:void(0)">
-          Submenu Link 3
-        </cv-header-menu-item>
-      </cv-header-menu>
-    </cv-header-nav>
-    </div>
-
-        <template v-slot:left-panels v-if="true">
-
-      <cv-side-nav id="side-nav" fixed>
-        <cv-side-nav-items>
-          <cv-header-side-nav-items>
-            <cv-header-menu-item href="javascript:void(0)">
-            Link 1
+        </cv-header-name>
+        <cv-header-nav aria-label="Carbon nav">
+          <cv-header-menu-item class="menu__link">
+            Overview
           </cv-header-menu-item>
-          <cv-header-menu-item href="javascript:void(0)">
-            Link 2
+          <cv-header-menu-item class="menu__link">
+            Learn
           </cv-header-menu-item>
-          <cv-header-menu-item href="javascript:void(0)">
-            Link 3
-          </cv-header-menu-item>
-          <cv-header-menu aria-label="Link 4" title="Link 4" :hover-toggle="false">
-            <cv-header-menu-item href="javascript:void(0)">
-              Submenu Link 1
+          <cv-header-menu class="menu__link" aria-label="Community" title="Community">
+            <cv-header-menu-item class="menu__link">
+              Events
             </cv-header-menu-item>
-            <cv-header-menu-item href="javascript:void(0)">
-              Submenu Link 2
-            </cv-header-menu-item>
-            <cv-header-menu-item href="javascript:void(0)">
-              Submenu Link 3
+            <cv-header-menu-item class="menu__link">
+              Advocates
             </cv-header-menu-item>
           </cv-header-menu>
-        </cv-header-side-nav-items>
-        </cv-side-nav-items>
-      </cv-side-nav>
-        </template>
-        <template v-slot:right-panels v-if="true">
-
-      </template>
+          <cv-header-menu-item class="menu__link">
+            Documentation
+          </cv-header-menu-item>
+        </cv-header-nav>
+      </div>
+      <template v-if="true" v-slot:right-panels />
     </cv-header>
   </div>
-
-
 </template>
 
 <script lang="ts">
@@ -181,25 +144,78 @@ export default class extends Mixins(MenuMixin) {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~carbon-components/scss/globals/scss/typography';
 
 .menu {
   background-color: white;
-  top: 3rem;
-  color: $white-text-01;
+  top: 3.45rem;
+  border-bottom: none;
+  height: 3.45rem;
 
   &__container {
     @include contained();
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   // overrides
   .bx--header__nav::before {
     display: none;
   }
+
+  .bx--header__name {
+    padding: 0;
+
+    &:focus {
+      border: 1px solid $purple-70;
+    }
+  }
+
+  .bx--header__menu-item {
+    color: $white-text-01;
+    padding: $spacing-05;
+    border: none;
+
+    &:hover {
+      background-color: transparent;
+      color: $white-text-01;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  .bx--header__submenu {
+    &:hover {
+      background-color: $cool-gray-20;
+    }
+  }
+
+  .bx--header__submenu svg,
+  .bx--header__menu-item:hover > svg {
+    fill: $white-text-01;
+  }
+
+  .bx--header__submenu a:hover {
+    cursor: default;
+    text-decoration: none;
+  }
+
+  .bx--header__menu-title[aria-expanded='true'],
+  .bx--header__menu-title[aria-expanded='true'] + .bx--header__menu,
+  .bx--header__menu-title[aria-expanded='true'] + .bx--header__submenu {
+    background-color: $cool-gray-20;
+  }
+
+  .bx--header__menu-title[aria-expanded='true'] + .bx--header__menu .bx--header__menu-item:hover {    background-color: $cool-gray-20;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+
+
 
   &__main-level {
     --link-color: #{$gray-80};
@@ -272,24 +288,21 @@ export default class extends Mixins(MenuMixin) {
   }
 
   &__link {
-    @include type-style('body-long-02');
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
-    color: var(--link-color);
-    text-decoration: none;
-    margin-right: $spacing-09;
-
-    &:hover {
-      text-decoration: underline;
-    }
+    margin-right: $spacing-03;
 
     &:last-child {
       margin-right: 0;
     }
 
-    &_active {
-      color: $purple-70;
+    a {
+      @include type-style('body-long-02');
+
+      &_active {
+        color: $purple-70;
+      }
     }
   }
 
