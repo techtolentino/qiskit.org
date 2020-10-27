@@ -1,6 +1,5 @@
 <template>
-  <div class="menu">
-    <!-- <section class="menu__mobile" tabindex="-1">
+  <!-- <section class="menu__mobile" tabindex="-1">
       <div class="menu__mobile-inner-container">
         <AppLink
           class="
@@ -77,41 +76,78 @@
       </nav>
     </section> -->
 
-    <cv-header aria-label="Carbon header" class="menu" tabindex="-1">
-      <cv-header-menu-button aria-label="Header menu" aria-controls="side-nav" />
-      <cv-skip-to-content href="#main-content">
-        Skip to content
-      </cv-skip-to-content>
-      <div class="menu__container">
-        <cv-header-name href="/">
-          <AppLogo
-            class="menu__logo"
-            :class="{ 'menu__logo_active': isActiveHome(homeLink) }"
-          />
-        </cv-header-name>
-        <cv-header-nav aria-label="Carbon nav">
-          <cv-header-menu-item class="menu__link">
-            Overview
+  <cv-header aria-label="Qiskit header" class="menu">
+    <cv-header-menu-button aria-label="Header menu" aria-controls="side-nav" />
+    <cv-skip-to-content href="#main-content">
+      Skip to content
+    </cv-skip-to-content>
+    <div class="menu__container">
+      <cv-header-name
+        href="/"
+        class="menu__link menu__home-link"
+        v-bind="homeLink"
+      >
+        <AppLogo
+          class="menu__logo"
+          :class="{ 'menu__logo_active': isActiveHome(homeLink) }"
+        />
+      </cv-header-name>
+      <cv-header-nav aria-label="Qiskit nav" tabindex="0">
+        <span
+          v-for="link in mainLevelLinks"
+          :key="link.url"
+        >
+          <cv-header-menu-item
+            v-if="!link.sublinks"
+            class="menu__link"
+            :class="{ 'menu__link_active': isActive(link) }"
+            v-bind="link"
+            :href="link.url"
+          >
+            {{ link.label }}
           </cv-header-menu-item>
-          <cv-header-menu-item class="menu__link">
-            Learn
-          </cv-header-menu-item>
-          <cv-header-menu class="menu__link" aria-label="Community" title="Community">
-            <cv-header-menu-item class="menu__link">
-              Events
-            </cv-header-menu-item>
-            <cv-header-menu-item class="menu__link">
-              Advocates
+          <cv-header-menu v-else class="menu__link" :aria-label="link.label" :title="link.label" tabindex="0">
+            <cv-header-menu-item
+              v-for="sublink in link.sublinks"
+              :key="sublink.url"
+              class="menu__link"
+              :href="sublink.url"
+            >
+              {{ sublink.label }}
             </cv-header-menu-item>
           </cv-header-menu>
-          <cv-header-menu-item class="menu__link">
-            Documentation
-          </cv-header-menu-item>
-        </cv-header-nav>
-      </div>
-      <template v-if="true" v-slot:right-panels />
-    </cv-header>
-  </div>
+        </span>
+      </cv-header-nav>
+    </div>
+    <template v-if="true" v-slot:right-panels>
+      <cv-side-nav id="side-nav" fixed>
+        <cv-side-nav-items>
+          <cv-header-side-nav-items>
+            <cv-header-menu-item href="javascript:void(0)">
+              Link 1
+            </cv-header-menu-item>
+            <cv-header-menu-item href="javascript:void(0)">
+              Link 2
+            </cv-header-menu-item>
+            <cv-header-menu-item href="javascript:void(0)">
+              Link 3
+            </cv-header-menu-item>
+            <cv-header-menu aria-label="Link 4" title="Link 4" :hover-toggle="false">
+              <cv-header-menu-item href="javascript:void(0)">
+                Submenu Link 1
+              </cv-header-menu-item>
+              <cv-header-menu-item href="javascript:void(0)">
+                Submenu Link 2
+              </cv-header-menu-item>
+              <cv-header-menu-item href="javascript:void(0)">
+                Submenu Link 3
+              </cv-header-menu-item>
+            </cv-header-menu>
+          </cv-header-side-nav-items>
+        </cv-side-nav-items>
+      </cv-side-nav>
+    </template>
+  </cv-header>
 </template>
 
 <script lang="ts">
@@ -148,6 +184,7 @@ export default class extends Mixins(MenuMixin) {
 @import '~carbon-components/scss/globals/scss/typography';
 
 .menu {
+  position: absolute;
   background-color: white;
   top: 3.45rem;
   border-bottom: none;
@@ -179,7 +216,8 @@ export default class extends Mixins(MenuMixin) {
     padding: $spacing-05;
     border: none;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: transparent;
       color: $white-text-01;
       text-decoration: underline;
@@ -213,9 +251,6 @@ export default class extends Mixins(MenuMixin) {
     text-decoration: underline;
     cursor: pointer;
   }
-
-
-
 
   &__main-level {
     --link-color: #{$gray-80};
@@ -297,12 +332,12 @@ export default class extends Mixins(MenuMixin) {
       margin-right: 0;
     }
 
+    &_active {
+      color: $purple-70;
+    }
+
     a {
       @include type-style('body-long-02');
-
-      &_active {
-        color: $purple-70;
-      }
     }
   }
 
