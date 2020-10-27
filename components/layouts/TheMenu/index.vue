@@ -1,6 +1,6 @@
 <template>
   <div class="menu">
-    <section class="menu__mobile" tabindex="-1">
+    <!-- <section class="menu__mobile" tabindex="-1">
       <div class="menu__mobile-inner-container">
         <AppLink
           class="
@@ -75,8 +75,80 @@
           {{ link.label }}
         </AppLink>
       </nav>
-    </section>
+    </section> -->
+
+    <cv-header aria-label="Carbon header" class="menu">
+      <cv-header-menu-button aria-label="Header menu" aria-controls="side-nav" />
+      <cv-skip-to-content href="#main-content">
+        Skip to content
+      </cv-skip-to-content>
+      <div class="menu__container">
+      <cv-header-name href="/">
+          <AppLogo
+            class="menu__logo"
+            :class="{ 'menu__logo_active': isActiveHome(homeLink) }"
+          />
+      </cv-header-name>
+      <cv-header-nav aria-label="Carbon nav">
+      <cv-header-menu-item href="javascript:void(0)">
+        Link 1
+      </cv-header-menu-item>
+      <cv-header-menu-item href="javascript:void(0)">
+        Link 2
+      </cv-header-menu-item>
+      <cv-header-menu-item href="javascript:void(0)">
+        Link 3
+      </cv-header-menu-item>
+      <cv-header-menu aria-label="Link 4" title="Link 4">
+        <cv-header-menu-item href="javascript:void(0)">
+          Submenu Link 1
+        </cv-header-menu-item>
+        <cv-header-menu-item href="javascript:void(0)">
+          Submenu Link 2
+        </cv-header-menu-item>
+        <cv-header-menu-item href="javascript:void(0)">
+          Submenu Link 3
+        </cv-header-menu-item>
+      </cv-header-menu>
+    </cv-header-nav>
+    </div>
+
+        <template v-slot:left-panels v-if="true">
+
+      <cv-side-nav id="side-nav" fixed>
+        <cv-side-nav-items>
+          <cv-header-side-nav-items>
+            <cv-header-menu-item href="javascript:void(0)">
+            Link 1
+          </cv-header-menu-item>
+          <cv-header-menu-item href="javascript:void(0)">
+            Link 2
+          </cv-header-menu-item>
+          <cv-header-menu-item href="javascript:void(0)">
+            Link 3
+          </cv-header-menu-item>
+          <cv-header-menu aria-label="Link 4" title="Link 4" :hover-toggle="false">
+            <cv-header-menu-item href="javascript:void(0)">
+              Submenu Link 1
+            </cv-header-menu-item>
+            <cv-header-menu-item href="javascript:void(0)">
+              Submenu Link 2
+            </cv-header-menu-item>
+            <cv-header-menu-item href="javascript:void(0)">
+              Submenu Link 3
+            </cv-header-menu-item>
+          </cv-header-menu>
+        </cv-header-side-nav-items>
+        </cv-side-nav-items>
+      </cv-side-nav>
+        </template>
+        <template v-slot:right-panels v-if="true">
+
+      </template>
+    </cv-header>
   </div>
+
+
 </template>
 
 <script lang="ts">
@@ -114,6 +186,20 @@ export default class extends Mixins(MenuMixin) {
 
 .menu {
   background-color: white;
+  top: 3rem;
+  color: $white-text-01;
+
+  &__container {
+    @include contained();
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  // overrides
+  .bx--header__nav::before {
+    display: none;
+  }
 
   &__main-level {
     --link-color: #{$gray-80};
