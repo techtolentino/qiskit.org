@@ -49,15 +49,34 @@
             :class="{ 'menu__logo_active': isActiveHome(homeLink) }"
           />
         </AppLink>
-        <AppLink
-          v-for="link in mainLevelLinks"
-          :key="link.url"
-          class="menu__link"
-          :class="{ 'menu__link_active': isActive(link) }"
-          v-bind="link"
-        >
-          {{ link.label }}
-        </AppLink>
+        <ul class="menu__navigation-level__list">
+          <li v-for="link in mainLevelLinks" :key="link.url" class="menu__navigation-level__list-item">
+            <AppLink
+              v-if="!link.sublinks"
+              class="menu__link"
+              :class="{ 'menu__link_active': isActive(link) }"
+              v-bind="link"
+            >
+              {{ link.label }}
+            </AppLink>
+            <cv-dropdown v-else class="cv-dropdown" placeholder="Community">
+              <li
+                v-for="sublink in link.sublinks"
+                :key="sublink.url"
+                class="cv-dropdown-item bx--dropdown-item"
+              >
+                <a
+                  class="menu__link"
+                  :class="{ 'menu__link_active': isActive(link) }"
+                  :href="sublink.url"
+                  v-bind="sublink"
+                >
+                  {{ sublink.label }}
+                </a>
+              </li>
+            </cv-dropdown>
+          </li>
+        </ul>
       </nav>
     </section>
     <section
@@ -109,7 +128,7 @@ export default class extends Mixins(MenuMixin) {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~carbon-components/scss/globals/scss/typography';
 
 .menu {
@@ -169,9 +188,40 @@ export default class extends Mixins(MenuMixin) {
     justify-content: flex-end;
   }
 
+  // dropdown
   &__navigation-level {
     @include mq($until: large) {
       display: none;
+    }
+
+    &__list {
+      display: flex;
+      align-items: center;
+    }
+
+    &__list-item:not(:last-child) {
+      margin-right: $layout-03;
+    }
+
+    // override
+    .cv--dropdown,
+    .bx--dropdown {
+      background-color: $white;
+      color: $white-text-01;
+      border-bottom: none;
+    }
+
+    .bx--dropdown-text {
+      @include type-style('body-long-02');
+      color: $white-text-01;
+    }
+
+    .bx--dropdown__arrow {
+      fill: $white-text-01;
+    }
+
+    .bx--dropdown-list {
+      background-color: $cool-gray-10;
     }
   }
 
@@ -222,4 +272,6 @@ export default class extends Mixins(MenuMixin) {
     justify-content: center;
   }
 }
+
+
 </style>
