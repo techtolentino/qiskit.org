@@ -65,14 +65,13 @@
                 :key="sublink.url"
                 class="cv-dropdown-item bx--dropdown-item"
               >
-                <a
+                <AppLink
                   class="menu__link"
                   :class="{ 'menu__link_active': isActive(link) }"
-                  :href="sublink.url"
                   v-bind="sublink"
                 >
                   {{ sublink.label }}
-                </a>
+                </AppLink>
               </li>
             </cv-dropdown>
           </li>
