@@ -72,10 +72,10 @@ export default class MobileMenu extends Mixins(MenuMixin) {
   theme = 'light'
 
   mounted () {
-    const communityMenu = this.$refs.communityDropdown[0]
+    const communityMenu: any = this.$refs.communityDropdown
 
     if (this.isCommunityActive()) {
-      communityMenu.open = true
+      communityMenu[0].open = true
     }
   }
 }
