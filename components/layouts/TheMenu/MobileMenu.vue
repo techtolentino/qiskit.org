@@ -19,7 +19,14 @@
             {{ link.label }}
           </p>
         </AppLink>
-        <cv-dropdown v-else :key="link.url" class="cv-dropdown mobile-menu__navigation__dropdown" :class="{ 'mobile-menu__link_active': isCommunityActive() }" placeholder="Community">
+        <cv-dropdown
+          v-else
+          ref="communityDropdown"
+          :key="link.url"
+          class="cv-dropdown mobile-menu__navigation__dropdown"
+          :class="{ 'mobile-menu__link_active': isCommunityActive() }"
+          placeholder="Community"
+        >
           <li>
             <AppLink
               v-for="sublink in getSubLinks(link)"
@@ -63,6 +70,14 @@ import {
 export default class MobileMenu extends Mixins(MenuMixin) {
   stayConnectedElements = STAY_CONNECTED_LINKS
   theme = 'light'
+
+  mounted () {
+    const communityMenu = this.$refs.communityDropdown[0]
+
+    if (this.isCommunityActive()) {
+      communityMenu.open = true
+    }
+  }
 }
 </script>
 
