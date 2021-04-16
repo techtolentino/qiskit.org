@@ -4,6 +4,8 @@
       :description="eventData.header.description"
       :cta="eventData.header.cta"
       :card-title="eventData.header.cardSectionHeading"
+      :event-title="eventData.header.primaryTitle"
+      :use-brand-title="true"
     >
       <template slot="title">
         {{ eventData.header.primaryTitle }}

@@ -3,7 +3,11 @@
     <div class="app-page-header__container">
       <main class="app-page-header__main">
         <div>
-          <h1 class="app-page-header__headline copy__page-title">
+          <h1 v-if="useBrandTitle" class="app-page-header__headline app-page-header__headline__brand copy__page-title">
+            <span class="app-page-header__headline__brand_title">Qiskit |</span>
+            <span class="app-page-header__headline__brand_event">{{ eventTitle }}</span>
+          </h1>
+          <h1 v-else class="app-page-header__headline copy__page-title">
             <slot name="title" />
           </h1>
           <div class="app-page-header__description">
@@ -39,6 +43,10 @@ export default class AppPageHeaderWithCard extends Vue {
   @Prop({ type: String, required: true }) cardTitle!: string
   @Prop({ type: Object, required: true }) cta!: GeneralLink
   @Prop({ type: Array, required: true }) description!: string[]
+  @Prop({ type: String }) eventTitle!: string
+  @Prop({ type: Boolean }) useBrandTitle!: boolean
+
+  brandName = 'Qiskit'
 }
 </script>
 
@@ -85,6 +93,38 @@ export default class AppPageHeaderWithCard extends Vue {
 
   &__headline {
     margin-top: $spacing-07;
+
+    // specific styles for branded event title
+    &__brand {
+      display: flex;
+      align-items: center;
+      margin-bottom: $layout-03;
+
+      &_title {
+        font-family: 'IBM Plex Sans Medium', Arial, Helvetica, sans-serif;
+        display: block;
+        letter-spacing: -2px;
+        font-size: 4rem;
+        margin-right: $spacing-05;
+
+        @include mq($until: large) {
+          font-size: 2.75rem;
+          margin-right: .5rem;
+        }
+      }
+
+      &_event {
+        font-family: 'IBM Plex Sans Text', Arial, Helvetica, sans-serif;
+        font-weight: 500;
+        font-size: 25px;
+        max-width: 16rem;
+
+        @include mq($until: large) {
+          font-size: 1.25rem;
+          max-width: 10rem;
+        }
+      }
+    }
   }
 
   &__description {
