@@ -4,7 +4,8 @@
       <main class="app-page-header__main">
         <div>
           <h1 v-if="useBrandTitle" class="app-page-header__headline app-page-header__headline__brand copy__page-title">
-            <span class="app-page-header__headline__brand_title">Qiskit |</span>
+            <span class="app-page-header__headline__brand_title">Qiskit</span>
+            <span class="app-page-header__headline__brand_divider">|</span>
             <span class="app-page-header__headline__brand_event">{{ eventTitle }}</span>
           </h1>
           <h1 v-else class="app-page-header__headline copy__page-title">
@@ -105,11 +106,20 @@ export default class AppPageHeaderWithCard extends Vue {
         display: block;
         letter-spacing: -2px;
         font-size: 4rem;
-        margin-right: $spacing-05;
 
         @include mq($until: large) {
           font-size: 2.75rem;
-          margin-right: .5rem;
+        }
+      }
+
+      &_divider {
+        font-family: 'IBM Plex Sans Medium', Arial, Helvetica, sans-serif;
+        display: block;
+        font-size: 4rem;
+        margin: 0 $spacing-03;
+
+        @include mq($until: large) {
+          font-size: 2.75rem;
         }
       }
 
@@ -120,7 +130,7 @@ export default class AppPageHeaderWithCard extends Vue {
         max-width: 16rem;
 
         @include mq($until: large) {
-          font-size: 1.25rem;
+          font-size: 1.125rem;
           max-width: 10rem;
         }
       }
