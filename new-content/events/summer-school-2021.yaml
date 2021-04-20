@@ -45,6 +45,7 @@ mosaic:
 
 agenda:
   title: 'Curriculum'
+  subtitle: '*Final agenda and syllabus subject to change'
   week1:
     tabName: 'Week 1'
     schedule:
