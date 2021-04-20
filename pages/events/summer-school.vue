@@ -164,7 +164,7 @@ interface AgendaSlot {
     eventData.helpfulResources.resources[2].cta.segment = { action: `${helpfulResourcesRouteText} qiskit-medium` }
     eventData.helpfulResources.resources[3].cta.segment = { action: `${helpfulResourcesRouteText} code-of-conduct` }
 
-    eventData.mosaic.first.position = 'first'
+    eventData.mosaic.first.position = 'first-alt'
     eventData.mosaic.second.position = 'second'
     eventData.mosaic.third.position = 'third'
     eventData.mosaic.fourth.position = 'fourth'

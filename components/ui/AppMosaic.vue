@@ -94,6 +94,15 @@ export default class AppMosaic extends Vue {
     &_first {
       grid-area: a;
       flex-direction: column;
+
+      &-alt {
+        grid-area: a;
+        flex-direction: column;
+
+        @include mq($until: medium) {
+          flex-direction: column;
+        }
+      }
     }
 
     &_second {
@@ -130,6 +139,16 @@ export default class AppMosaic extends Vue {
         background-position: right bottom;
         background-size: contain;
         background-repeat: no-repeat;
+
+        &-alt {
+          background-position: center center;
+          background-size: cover;
+          background-repeat: no-repeat;
+
+          @include mq($until: large) {
+            min-height: 12rem;
+          }
+        }
       }
 
       &_second {

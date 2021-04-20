@@ -29,7 +29,7 @@ mosaic:
   first:
     title: 'IBM Quantum'
     description: 'IBM offers cloud access to the most advanced quantum computers available. Learn, develop, and run programs with our quantum applications and systems.<br/><br/><a href="https://quantum-computing.ibm.com/login" target="_blank" style="cursor:pointer; text-decoration: none; color: #0f62fe;">Explore IBM Quantum</a>'
-    image: '/images/events/seminar-series/mosaic-experts.png'
+    image: '/images/events/summer-school/IBM_System_One_display.jpg'
   second:
     title: 'IBM Quantum Tools on the Cloud'
     description: 'Learn quantum programming and how to use our tools with step-by-step tutorials and guides.<br/><br/><a href="https://quantum-computing.ibm.com/docs/" target="_blank" style="cursor:pointer; text-decoration: none; color: #0f62fe;">Explore the docs</a>'
